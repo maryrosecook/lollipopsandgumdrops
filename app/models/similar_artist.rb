@@ -18,9 +18,9 @@ class SimilarArtist < ActiveRecord::Base
   end
   
   def self.find_for_name_user_similar(name, user, library_artist)
-    self.find(:first, :conditions =>  "name = '#{Util.esc_apos(name)}' 
-                                       AND user_id = #{user.id} 
-                                       AND library_artist_id = #{library_artist.id}")
+    self.find(:first, :conditions =>  "user_id = #{user.id} 
+                                       AND library_artist_id = #{library_artist.id}
+                                       AND name = '#{Util.esc_apos(name)}' ")
   end
   
   def self.recommended_similar_artists(similar_artists)

@@ -24,7 +24,7 @@ module HomeHelper
     out = ""
     name_size = (BASE_ARTIST_FONT_SIZE + (((rank / 100) - 1) * 3)).to_i
     height = name_size
-    comma_size = name_size.to_f / 1.5
+    comma_size = name_size.to_f / 1.2
 
     out += "<span style='font-size:#{comma_size}px; line-height:#{height}px;'>"
     out += ", " if i > 0

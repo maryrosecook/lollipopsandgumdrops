@@ -80,15 +80,20 @@ class HomeController < ApplicationController
               similar_artist.rank = similar_artist.similarity
               @already_in_library[similar_artist.name] = similar_artist
             end
+            
             @already_in_library[similar_artist.name].rank += similar_artist.similarity
           else
             if !@recommendations.has_key?(similar_artist.name)
               similar_artist.rank = similar_artist.similarity
               @recommendations[similar_artist.name] = similar_artist
             end
+            
             @recommendations[similar_artist.name].rank += similar_artist.similarity
           end
         end
+        
+        @already_in_library = Recommending.filter_by_rank(@already_in_library)
+        @recommendations = Recommending.filter_by_rank(@recommendations)
       end
     end
   end
