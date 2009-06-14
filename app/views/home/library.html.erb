@@ -8,7 +8,7 @@
 		<h2>Music library</h2><br/><br/>
 		
 		Click on the artists you <strong>absolutely adore</strong>, then click Save,
-		then on recommendations.<br/><br/>
+		then click recommendations.<br/><br/>
 		
 		<% user_library_artists = @user.library_artists %>
 		<% for i in (0..user_library_artists.length-1) %><% if i > 0 %>, <% end-%><%= artist_label(user_library_artists[i]) %><% end-%>
