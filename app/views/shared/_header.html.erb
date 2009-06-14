@@ -1,0 +1,18 @@
+<div class="header_container">
+	<div class="header">
+		<div class="main_title"><h1><a href='/'>Lollipops and Gumdrops</a></h1></div>
+		<br/>
+	</div>
+</div>
+
+<div class="nav_container">
+	<div class="nav_words">
+		<a href='/'>home</a>, 
+		<a href='/about'>about</a><% if Util.ne(cookies[:user_id]) %>,<% end-%>
+		<% if Util.ne(cookies[:user_id]) %>
+			<a href='/library'>library</a>, 
+			<a href='/recommendations'>recommendations</a>,
+			<a href='/user/logout'>logout</a>
+		<% end-%>
+	</div>
+</div>

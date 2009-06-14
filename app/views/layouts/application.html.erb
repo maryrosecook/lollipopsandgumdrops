@@ -1,0 +1,19 @@
+<html> 
+	<head>
+		<!-- title -->
+		<% @title = nil if !Util.ne(@title) %>
+		<title>Lollipops and Gumdrops <%= " - " + @title if @title %></title>
+		
+		<%= javascript_include_tag 'application', 'prototype' %>
+		<%= stylesheet_link_tag "main", :media => "all" %>
+		<meta name = "viewport" content = "width=device-width">
+	</head> 
+	
+	<body>
+		<%= render(:partial => 'shared/header') %>
+		
+		<%= @content_for_layout %>
+				
+		<%= render(:partial => 'shared/footer') %>
+	</body>
+</html>

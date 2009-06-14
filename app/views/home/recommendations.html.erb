@@ -1,0 +1,30 @@
+<div class="page_content_holder">
+	<% form_tag do -%>
+		<div class="update">
+			<%= submit_tag "Update recommendations", :class => 'submit_button' %>
+		</div><br/>	
+	<% end-%>
+	
+	<h2>Recommendations</h2><br/><br/>
+	
+	<% if !@no_similar_artists %>
+		Known artist to recommendation ratio: 
+		<%= (Recommending.library_ratio(@recommendations, @already_in_library)).to_s[0..4] %>
+		<br/>
+	
+		Known to favourite artist ratio: 
+		<%= (Recommending.favourite_artists_ratio(@already_in_library)).to_s[0..4] %>
+		<br/><br/>
+	
+		<strong><%= @recommendations.length %></strong> recommendations:<br/><br/>
+		<%= render(:partial => 'artists_by_rank', :locals => { :artists => @recommendations } ) %>
+		<br/><br/><br/>
+	
+		And <strong><%= @already_in_library.length %></strong> artists you already know about:<br/><br/>
+		<%= render(:partial => 'artists_by_rank', :locals => { :artists => @already_in_library } ) %>
+		
+	<% else %>
+		Couldn't get any recommendations.  Make sure you've picked your 
+		<a href='/library'>favourite artists</a>.
+	<% end-%>
+</div>

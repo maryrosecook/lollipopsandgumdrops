@@ -1,0 +1,4 @@
+<% if artists && artists.length > 0 %>
+	<% artist_names = artists.keys.sort { |x,y| artists[y].rank <=> artists[x].rank } %>
+	<% for i in (0..artist_names.length-1) %><%= rank_size_artist(artists[artist_names[i]], artists[artist_names[i]].rank, i) %><% end-%>
+<% end-%>

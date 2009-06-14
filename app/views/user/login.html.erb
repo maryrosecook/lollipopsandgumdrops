@@ -1,0 +1,13 @@
+<div class="page_content_holder"><br/>
+
+	Discover music you'll actually like.<br/><br/>
+
+	<!-- show username form -->
+	<% form_tag do -%>
+		<span class="last_fm_username_form_label"><a href='http://last.fm'>Last.fm</a> username</span><br/>
+		<input class="text_field" id="username" name="username" type="text" value="<%= @username %>"/>
+		<%= submit_tag "Go", :class => 'submit_button', :onclick => "Element.show('time_warning');" %><br/>
+		<span id="time_warning" style="display:none;">30 secs while I grab your library.</span>
+	<% end-%>
+	<br/>
+</div>
