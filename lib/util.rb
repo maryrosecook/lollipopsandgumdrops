@@ -1,7 +1,5 @@
 module Util
 
-  MAX_SCRAPING_TIME_BECAUSE_OF_HEROKU_TIMEOUT = 16 # don't allow requests longer than this other Heroku will cry
-
   def self.ne(str)
     str && str != ""
   end

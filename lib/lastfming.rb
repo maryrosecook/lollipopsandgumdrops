@@ -3,7 +3,9 @@ require 'hpricot'
 require 'open-uri'
 
 module Lastfming
-      
+  
+  MAX_TIME_BECAUSE_OF_HEROKU_TIMEOUT = 16 # don't allow requests longer than this other Heroku will cry
+  
   LAST_FM_API_KEY = "0fe92bb2a3b1e5b714cc39e2df8da14f"
   def self.get_library_artists(user)
     library_artists = []
@@ -36,7 +38,7 @@ module Lastfming
         page += 1
         
         # avoid bullshit heroku request timeout
-        break if (Time.new.tv_sec - start_time.tv_sec) > Util::MAX_SCRAPING_TIME_BECAUSE_OF_HEROKU_TIMEOUT
+        break if (Time.new.tv_sec - start_time.tv_sec) > MAX_TIME_BECAUSE_OF_HEROKU_TIMEOUT
       end
     end
     

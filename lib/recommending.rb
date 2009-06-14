@@ -1,6 +1,8 @@
 module Recommending
   
   SIMILARITY_THRESHOLD = 60
+  MAX_TIME_BECAUSE_OF_HEROKU_TIMEOUT = 20 # don't allow requests longer than this other Heroku will cry
+  
   
   def self.update_similar_artists(user)
     start_time = Time.new
@@ -10,7 +12,7 @@ module Recommending
         SimilarArtist.get_or_create(similar_artist_name, user, library_artist, similar_artists[similar_artist_name]).save()
       end
       
-      break if (Time.new.tv_sec - start_time.tv_sec) > Util::MAX_SCRAPING_TIME_BECAUSE_OF_HEROKU_TIMEOUT
+      break if (Time.new.tv_sec - start_time.tv_sec) > MAX_TIME_BECAUSE_OF_HEROKU_TIMEOUT
     end
   end
   
