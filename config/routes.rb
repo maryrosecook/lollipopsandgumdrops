@@ -46,6 +46,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/last_fm_artist_page', :controller => 'home', :action => 'last_fm_artist_page'
 
   map.connect '/user', :controller => 'user'
+  
+  map.connect '/elsewhere', :controller => 'elsewhere'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

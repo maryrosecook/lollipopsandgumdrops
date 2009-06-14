@@ -8,11 +8,11 @@
 	<h2>Recommendations</h2><br/><br/>
 	
 	<% if !@no_similar_artists %>
-		Known artist to recommendation ratio: 
+		Known to recommended artist ratio: 
 		<%= (Recommending.library_ratio(@recommendations, @already_in_library)).to_s[0..4] %>
 		<br/>
 	
-		Known to favourite artist ratio: 
+		Favourite to known artist ratio: 
 		<%= (Recommending.favourite_artists_ratio(@already_in_library)).to_s[0..4] %>
 		<br/><br/>
 	

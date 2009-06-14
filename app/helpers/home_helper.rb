@@ -31,7 +31,7 @@ module HomeHelper
     out += "</span> "
     out += "<strong>" if artist.favourite?
     out += "<span style='font-size:#{name_size}px; line-height:#{height}px;'>"
-    out += "<a href='/last_fm_artist_page?artist_name=#{artist.name}' title='#{artist.name} on Last.fm'>"
+    out += "<a href=\"/elsewhere/myspace/#{artist.name}\" title='#{artist.name} on Myspace'>"
     out += "#{artist.name}"
     out += "</a>"
     out += "</span>"

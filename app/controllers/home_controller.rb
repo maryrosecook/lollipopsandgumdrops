@@ -97,15 +97,4 @@ class HomeController < ApplicationController
       end
     end
   end
-  
-  def last_fm_artist_page
-    redirect_url = "/recommendations"
-    if Util.ne(params[:artist_name])
-      if last_fm_url = Lastfming::get_artist_url(params[:artist_name])
-        redirect_url = last_fm_url
-      end
-    end
-    
-    redirect_to(redirect_url)
-  end
 end
