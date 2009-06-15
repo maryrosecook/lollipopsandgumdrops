@@ -1,6 +1,7 @@
 module HomeHelper
 
   BASE_ARTIST_FONT_SIZE = 12
+  COMMA_DEEMPHASIZE_AMOUNT = 1.2
 
   def artist_label(artist)
     out = ""
@@ -20,11 +21,16 @@ module HomeHelper
     return out
   end
   
-  def rank_size_artist(artist, rank, i)
+  def rank_size_artist(artist, max_rank, min_rank, rank, i)
     out = ""
-    name_size = (BASE_ARTIST_FONT_SIZE + (((rank / 100)) * 5)).to_i
+    
+    max_px_add = 20
+    max_px_add_proportion = ((rank - min_rank) / (max_rank - min_rank))
+    add = (max_px_add * max_px_add_proportion).to_i
+    
+    name_size = BASE_ARTIST_FONT_SIZE + add
     height = name_size + 3
-    comma_size = name_size.to_f / 1.2
+    comma_size = name_size.to_f / COMMA_DEEMPHASIZE_AMOUNT
 
     out += "<span style='font-size:#{comma_size}px; line-height:#{height}px;'>"
     out += ", " if i > 0
