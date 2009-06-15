@@ -10,9 +10,17 @@ class User < ActiveRecord::Base
   def library_artists
     return LibraryArtist.find(:all, :conditions => "user_id = #{self.id}", :order => "created_at, id")
   end
-  
+
   def favourite_library_artists
     return LibraryArtist.find(:all, :conditions => "user_id = #{self.id} AND favourite = 1 ", :order => "created_at, id")
+  end
+  
+  def unsimilared_favourite_library_artists
+    return LibraryArtist.find(:all, 
+                              :conditions => "user_id = #{self.id} 
+                                              AND favourite = 1 
+                                              AND (similared IS NULL OR similared = 0) ", 
+                              :order => "created_at, id")
   end
   
   def similar_artists

@@ -37,4 +37,8 @@ class SimilarArtist < ActiveRecord::Base
     
     return favourite
   end
+  
+  def similared?
+    return similared == 1
+  end
 end

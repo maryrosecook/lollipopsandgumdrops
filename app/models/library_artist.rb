@@ -22,4 +22,11 @@ class LibraryArtist < ActiveRecord::Base
   def favourite?
     return self.favourite == 1
   end
+  
+  def self.reset_similared(user)
+    for library_artist in self.find(:all, :conditions => "user_id = #{user.id}")
+      library_artist.similared = 0
+      library_artist.save
+    end
+  end
 end

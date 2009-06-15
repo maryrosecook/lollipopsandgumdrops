@@ -22,7 +22,7 @@ module HomeHelper
   
   def rank_size_artist(artist, rank, i)
     out = ""
-    name_size = (BASE_ARTIST_FONT_SIZE + (((rank / 100) - 1) * 3)).to_i
+    name_size = (BASE_ARTIST_FONT_SIZE + (((rank / 100)) * 5)).to_i
     height = name_size + 3
     comma_size = name_size.to_f / 1.2
 

@@ -18,6 +18,18 @@ module Util
     return return_str
   end
   
+  def self.min(a,b)
+    min = nil
+    b < a ? min = b : min = a
+    return min
+  end
+  
+  def self.max(a,b)
+    max = nil
+    b > a ? max = b : max = a
+    return max
+  end
+  
   # shorts passed str to passed word_count
   def self.truncate(str, word_count, elipsis)
     words = str.split()
