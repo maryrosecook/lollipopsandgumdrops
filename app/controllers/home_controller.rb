@@ -55,7 +55,7 @@ class HomeController < ApplicationController
     if cookies[:user_id]
       @user = User.find(cookies[:user_id])
 
-      if params[:show] # show recommendations
+      if params[:show] || (@user.unsimilared_favourite_library_artists.length == 0 && @user.similar_artists.length > 0)  # show recommendations
         @recommendations = {}
         @already_in_library = {}
 
