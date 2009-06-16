@@ -18,9 +18,10 @@ module Lastfming
       doc = open(url.to_s) do |f|
         Hpricot.XML(f)
       end
-      
+
       if xml_data = doc.at("lfm/artists")
         page_count = xml_data.attributes["totalPages"].to_i
+        page_count = 1 if page_count == 0 # weird last.fm bug where users w/ 1 page of library are said to have 0 pages of library
       end
 
       start_time = Time.new
