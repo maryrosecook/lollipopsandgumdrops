@@ -19,7 +19,7 @@ class UserController < ApplicationController
       
       cookies[:user_id] = @user.id.to_s
       redirect_to("/library")
-    else # just show user selection form
+    else # just show user selection form and latest users
     end
   end
 

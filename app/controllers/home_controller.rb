@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     
     @commits = []
     prev_title = "woo woo yeah meep"
-    for commit in Commit.get_latest_in_order
+    for commit in Commit.latest
       @commits << commit if Util.ne(commit.title) && commit.title != prev_title # put a message AND haven't done multiple commits for single change
       prev_title = commit.title
     end

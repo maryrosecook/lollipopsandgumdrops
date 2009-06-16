@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :library_artists
   
+  LATEST = 10
+  
   def self.new_from_request(username)
     user = self.new()
     user.username = username
@@ -34,5 +36,9 @@ class User < ActiveRecord::Base
   
   def recommended_similar_artists
     return SimilarArtist.recommended_similar_artists(self.similar_artists)
+  end
+  
+  def self.latest
+    return self.find(:all, :order => 'id DESC', :limit => LATEST)
   end
 end

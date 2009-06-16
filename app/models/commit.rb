@@ -14,7 +14,7 @@ class Commit < ActiveRecord::Base
     self.find(:first, :conditions => "git_id = '#{git_id}'")
   end
   
-  def self.get_latest_in_order
+  def self.latest
     self.find(:all, :order => 'id ASC', :limit => LATEST)
   end
 end
