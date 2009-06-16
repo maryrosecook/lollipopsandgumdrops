@@ -43,6 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/recommendations', :controller => 'home', :action => 'recommendations'
   map.connect '/library', :controller => 'home', :action => 'library'
   map.connect '/about', :controller => 'home', :action => 'about'
+  map.connect '/changes', :controller => 'home', :action => 'changes'
   map.connect '/last_fm_artist_page', :controller => 'home', :action => 'last_fm_artist_page'
 
   map.connect '/user', :controller => 'user'

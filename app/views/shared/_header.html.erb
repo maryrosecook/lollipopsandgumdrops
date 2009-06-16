@@ -8,7 +8,8 @@
 <div class="nav_container">
 	<div class="nav_words">
 		<a href='/'>home</a>, 
-		<a href='/about'>about</a><% if Util.ne(cookies[:user_id]) %>,<% end-%>
+		<a href='/about'>about</a>,
+		<a href='/changes'>changes</a><% if Util.ne(cookies[:user_id]) %>,<% end-%>
 		<% if Util.ne(cookies[:user_id]) %>
 			<a href='/library'>library</a>, 
 			<a href='/recommendations'>recommendations</a>,

@@ -7,42 +7,21 @@ class HomeController < ApplicationController
     end
   end
 
+  def changes
+    Githubing.update_commit_messages
+    @commits = Commit.get_latest_in_order
+  end
+
   def library
     if cookies[:user_id]
       @user = User.find(cookies[:user_id])
 
       if params[:commit] == "Update library" || @user.library_artists.length == 0 # get all artists in user's library from lfm and save new ones
-        for artist_name in Lastfming.get_library_artists(@user)
-          LibraryArtist.get_or_create(artist_name, @user).save()
-        end
-        
+        Lastfming.get_library_artists(@user).each { |artist_name| LibraryArtist.get_or_create(artist_name, @user).save() }  
         redirect_to("/library")
-      elsif params[:commit] == "Save" # updating favourite artists
-        favourited_bag = []
-        
-        # favourite those ones that have been favourited in form
-        for field_name in params.keys          
-          if field_name =~ /artist[0-9]+/
-            if library_artist_id = field_name.gsub(/artist/, "")
-              if library_artist = LibraryArtist.find(library_artist_id)
-                library_artist.favourite = 1
-                library_artist.save()
-                favourited_bag << library_artist
-              end
-            end
-          end
-        end
-
-        # unfavourite artists who were unticked
-        for library_artist in @user.library_artists
-          if library_artist.favourite? && !favourited_bag.include?(library_artist)
-            library_artist.favourite = 0
-            if library_artist.save()
-              library_artist.similar_artists.each { |favourited_artist| favourited_artist.destroy() }
-            end
-          end
-        end
-
+      elsif params[:commit] == "Save" # updating favourite artists        
+        favourited_bag = favourite(params) # favourite those ones that have been favourited in form
+        unfavourite(user, favourited_bag) # unfavourite artists who were unticked
         redirect_to("/library")
       else # just showing artists
       end
@@ -69,19 +48,9 @@ class HomeController < ApplicationController
 
         for similar_artist in similar_artists
           if library_artist_names.include?(similar_artist.name)
-            if !@already_in_library.has_key?(similar_artist.name)
-              similar_artist.rank = similar_artist.similarity
-              @already_in_library[similar_artist.name] = similar_artist
-            end
-
-            @already_in_library[similar_artist.name].rank += similar_artist.similarity
+            integrate(@already_in_library, similar_artist)
           else
-            if !@recommendations.has_key?(similar_artist.name)
-              similar_artist.rank = similar_artist.similarity
-              @recommendations[similar_artist.name] = similar_artist
-            end
-
-            @recommendations[similar_artist.name].rank += similar_artist.similarity
+            integrate(@already_in_library, similar_artist)
           end
         end
 
@@ -100,4 +69,43 @@ class HomeController < ApplicationController
       end
     end
   end
+  
+  private
+    
+    def favourite(params)
+      favourited_bag = []
+      for field_name in params.keys          
+        if field_name =~ /artist[0-9]+/
+          if library_artist_id = field_name.gsub(/artist/, "")
+            if library_artist = LibraryArtist.find(library_artist_id)
+              library_artist.favourite = 1
+              library_artist.save()
+              favourited_bag << library_artist
+            end
+          end
+        end
+      end
+      
+      return favourited_bag
+    end
+    
+    def unfavourite(user, favourited_bag)
+      for library_artist in user.library_artists
+        if library_artist.favourite? && !favourited_bag.include?(library_artist)
+          library_artist.favourite = 0
+          if library_artist.save()
+            library_artist.similar_artists.each { |favourited_artist| favourited_artist.destroy() }
+          end
+        end
+      end
+    end
+    
+    def integrate(artists, similar_artist)
+      if !artists.has_key?(similar_artist.name)
+        similar_artist.rank = similar_artist.similarity
+        artists[similar_artist.name] = similar_artist
+      end
+
+      artists[similar_artist.name].rank += similar_artist.similarity
+    end
 end

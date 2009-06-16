@@ -47,7 +47,7 @@ hr { border:1px #aaa solid; height:1; }
 
 .admin_link { font-size: 12px; vertical-align:top; }
 
-LI.thing { list-style:none; margin:0 0 0 -40; } 
+LI.commit { list-style:katakana-iroha; margin:0 0 0 -10; } 
 
 /* forms */
 
