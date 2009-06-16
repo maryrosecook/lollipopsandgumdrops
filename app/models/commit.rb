@@ -1,7 +1,8 @@
 class Commit < ActiveRecord::Base
 
   LATEST = 20
-
+  #create table commits(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, git_id varchar(1000), title text);
+  
   def self.new_from_feed(git_id, title)
     commit = self.new
     commit.git_id = git_id

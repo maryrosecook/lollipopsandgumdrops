@@ -6,8 +6,6 @@ module Githubing
   
   COMMIT_FEED = "http://github.com/feeds/maryrosecook/commits/lollipopsandgumdrops/master"
   
-  #create table commits(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, git_id varchar(1000), title text);
-  
   def self.update_commit_messages()
     url = safely_parse_url(COMMIT_FEED)
     doc = open(url.to_s) do |f|

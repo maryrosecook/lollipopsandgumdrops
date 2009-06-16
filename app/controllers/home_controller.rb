@@ -27,7 +27,7 @@ class HomeController < ApplicationController
         redirect_to("/library")
       elsif params[:commit] == "Save" # updating favourite artists        
         favourited_bag = favourite(params) # favourite those ones that have been favourited in form
-        unfavourite(user, favourited_bag) # unfavourite artists who were unticked
+        unfavourite(@user, favourited_bag) # unfavourite artists who were unticked
         redirect_to("/library")
       else # just showing artists
       end
