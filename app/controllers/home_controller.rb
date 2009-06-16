@@ -56,7 +56,7 @@ class HomeController < ApplicationController
           if library_artist_names.include?(similar_artist.name)
             integrate(@already_in_library, similar_artist)
           else
-            integrate(@already_in_library, similar_artist)
+            integrate(@recommendations, similar_artist)
           end
         end
 
