@@ -14,19 +14,15 @@ module Githubing
       Hpricot.XML(f)
     end
 
-    prev_title = "woo woo yeah meep"
     (doc.at("feed")/:"entry").each do |entry|
       commit_message = {}
       git_id = entry.at("id").inner_html
       if !Commit.find_for_git_id(git_id)
         title = entry.at("title").inner_html
-        if Util.ne(title) && title != prev_title # put a message AND haven't done multiple commits for single change
-          updated = entry.at("updated").inner_html
-          if commit = Commit.new_from_feed(git_id, title)
-            commit.save
-          end
+        updated = entry.at("updated").inner_html
+        if commit = Commit.new_from_feed(git_id, title)
+          commit.save
         end
-        prev_title = title
       end
     end
   end

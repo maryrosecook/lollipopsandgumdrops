@@ -9,7 +9,13 @@ class HomeController < ApplicationController
 
   def changes
     Githubing.update_commit_messages
-    @commits = Commit.get_latest_in_order
+    
+    @commits = []
+    prev_title = "woo woo yeah meep"
+    for commit in Commit.get_latest_in_order
+      @commits << commit if Util.ne(commit.title) && commit.title != prev_title # put a message AND haven't done multiple commits for single change
+      prev_title = commit.title
+    end
   end
 
   def library
