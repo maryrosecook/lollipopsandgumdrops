@@ -15,6 +15,6 @@ class Commit < ActiveRecord::Base
   end
   
   def self.latest
-    self.find(:all, :order => 'id ASC', :limit => LATEST)
+    self.find(:all, :order => 'id DESC', :limit => LATEST)
   end
 end

@@ -11,10 +11,13 @@ class HomeController < ApplicationController
     Githubing.update_commit_messages
     
     @commits = []
+    titles = []
     prev_title = "woo woo yeah meep"
     for commit in Commit.latest
-      @commits << commit if Util.ne(commit.title) && commit.title != prev_title # put a message AND haven't done multiple commits for single change
-      prev_title = commit.title
+      if Util.ne(commit.title) && !titles.include?(commit.title)  # put message AND haven't included this title before
+        @commits << commit
+        titles << commit.title
+      end
     end
   end
 
