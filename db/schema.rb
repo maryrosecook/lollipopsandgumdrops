@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "favourite",                 :default => 0
+    t.integer "similared"
   end
 
   create_table "similar_artists", :force => true do |t|
